@@ -1,14 +1,12 @@
-version: '3.8'
+version: "3.8"
 services:
   api:
     build:
       dockerfile: Dockerfile
       context: .
-      target: development
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: ${DATABASE_URL}
       NODE_ENV: development
       PORT: 3000
     ports:
@@ -16,9 +14,25 @@ services:
 
   postgres:
     image: postgres
+    restart: always
     ports:
-      - "5432:5432"
+      - '5432:5432'
+    volumes:
+      - docker-nest-postgres:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: tester
+      POSTGRES_PASSWORD: tester
+      POSTGRES_DB: wuber
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+
+volumes:
+  docker-nest-postgres:

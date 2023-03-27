@@ -1,2 +1,2 @@
 PRIVATE_WOMPI_SANDBOX_KEY=prv_test_
-POSTGRES_URL = postgres://user:password@postgres:5432/wuber
+POSTGRES_URL=postgres://tester:tester@postgres:5432/wuber

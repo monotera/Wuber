@@ -12,9 +12,9 @@
 #### Structural Diagram
 ![Structural diagram](./Diagrams/images/EstructuralDiagram.png)
 #### Logical Diagram
-![Logical diagram](./Diagrams/images/EstructuralDiagram.png)
+![Logical diagram](./Diagrams/images/logicalDiagram.png)
 #### DB Diagram
-![DB diagram](./Diagrams/images/EstructuralDiagram.png)
+![DB diagram](./Diagrams/images/DBDiagram.png)
 
 ## Dependencies
 *   @nestjs/common

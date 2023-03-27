@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "915ff6c8-4f4c-4a50-909a-430a7e73c209",
+		"name": "Wuber",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14573500"
+	},
+	"item": [
+		{
+			"name": "find all drivers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/drivers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"drivers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find all riders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/riders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"riders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find all trips",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/trips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"trips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find specific driver",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/drivers/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"drivers",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find specific rider",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/riders/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"riders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find specific trip",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/trips/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"trips",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get available drivers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/drivers/available",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"drivers",
+						"available"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get acceptance token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sandbox.wompi.co/v1/merchants/publick_token",
+					"protocol": "https",
+					"host": [
+						"sandbox",
+						"wompi",
+						"co"
+					],
+					"path": [
+						"v1",
+						"merchants",
+						"publick_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start a trip",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"riderId\": 1,\r\n    \"riderCurrentLat\": 2,\r\n    \"riderCurrentLong\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/trips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"trips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "populate drivers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/drivers/populate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"drivers",
+						"populate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "populate rider db",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"acceptanceTokens\" : [\"token\"],\r\n    \"creditCardPaymentSources\": [123456]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/riders/populate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"riders",
+						"populate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tokenize card",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "Bearer pub_test_",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"number\": \"4242424242424242\", \r\n  \"exp_month\": \"06\", \r\n  \"exp_year\": \"40\", \r\n  \"cvc\": \"123\", \r\n  \"card_holder\": \"Pedro Pérez\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://sandbox.wompi.co/v1/tokens/cards",
+					"protocol": "https",
+					"host": [
+						"sandbox",
+						"wompi",
+						"co"
+					],
+					"path": [
+						"v1",
+						"tokens",
+						"cards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "end a trip",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tripEndLat\": 5,\r\n    \"tripEndLong\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/trips/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"trips",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User payment source",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tokenizeCard\": \"tok_test_\",\r\n  \"acceptance_token\": \"token\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/riders/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"riders",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

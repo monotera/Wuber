@@ -1,4 +1,3 @@
-import {Trip} from "../../trip/models/trip.entity";
 import {IsNotEmpty} from 'class-validator';
 
 export class DriverDTO {
@@ -12,5 +11,4 @@ export class DriverDTO {
     @IsNotEmpty()
     currentLong: number;
     isAvailable: boolean;
-    trips: Trip[];
 }

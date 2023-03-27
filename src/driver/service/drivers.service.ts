@@ -47,7 +47,29 @@ export class DriversService {
         return availableDriver[0]["id"];
     }
 
-    async updateAvailability(id: number, availability:boolean): Promise<UpdateResult> {
+    async updateAvailability(id: number, availability: boolean): Promise<UpdateResult> {
         return this.driverRepository.update(id, {isAvailable: availability});
+    }
+
+    async populateDB(): Promise<DriverDTO[]> {
+        let drivers = await this.findAll();
+        if (drivers.length >= 10)
+            throw new Error("The db is already populated.")
+        drivers = []
+        for (let i = 0; i < 10; i++) {
+            let testDriver = {
+                name: "Tester" + i,
+                licensePlate: "Tester" + this.getRandomInt(15),
+                currentLat: this.getRandomInt(15),
+                currentLong: this.getRandomInt(15),
+                isAvailable: this.getRandomInt(2) == 0
+            } as DriverDTO
+            drivers.push(await this.create(testDriver))
+        }
+        return drivers;
+    }
+
+    getRandomInt(max: number): number {
+        return Math.floor(Math.random() * max);
     }
 }

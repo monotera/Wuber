@@ -3,6 +3,7 @@ import {TripDTO} from "../dto/trip.dto";
 import {TripService} from "../service/trip.service";
 import {BasicTripInitDTO} from "../dto/basicTripInit.dto";
 import {BasicTripEndDTO} from "../dto/basicTripEnd.dto";
+import {ApiOperation} from "@nestjs/swagger";
 
 
 @Controller('trips')
@@ -16,6 +17,7 @@ export class TripController {
     }
 
     @Post()
+    @ApiOperation({ summary: 'Starts a new trip.' })
     async startATrip(@Body() basicTripInfo: BasicTripInitDTO): Promise<TripDTO> {
         try {
             return await this.tripService.startATrip(basicTripInfo)
@@ -25,6 +27,7 @@ export class TripController {
     }
 
     @Patch("/:id")
+    @ApiOperation({ summary: 'Ends a given trip' })
     async finishATrip(@Param('id', ParseIntPipe) id: number, @Body() basicTripEndInfo: BasicTripEndDTO): Promise<TripDTO> {
         basicTripEndInfo.tripId = id;
         try {

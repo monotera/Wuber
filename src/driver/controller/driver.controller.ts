@@ -1,6 +1,7 @@
 import {DriversService} from "../service/drivers.service";
-import {Body, Controller, Get, Param, ParseIntPipe, Post} from '@nestjs/common';
+import {Controller, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post} from '@nestjs/common';
 import {DriverDTO} from "../dto/driver.dto";
+import {ApiOperation} from "@nestjs/swagger";
 
 @Controller('drivers')
 export class DriverController {
@@ -12,13 +13,9 @@ export class DriverController {
         return this.driverService.findAll();
     }
 
-    @Post()
-    create(@Body() driver: DriverDTO): Promise<DriverDTO> {
-        return this.driverService.create(driver);
-    }
-
     @Get("/available")
-    findAvailableDrivers(): Promise<DriverDTO[]>{
+    @ApiOperation({summary: 'Finds all drivers that are ready for a trip.'})
+    findAvailableDrivers(): Promise<DriverDTO[]> {
         return this.driverService.fetchAllAvailableDrivers();
     }
 
@@ -27,4 +24,13 @@ export class DriverController {
         return this.driverService.findOne(id);
     }
 
+    @Post("/populate")
+    @ApiOperation({summary: 'Creates mock data'})
+    async populateDB(): Promise<DriverDTO[]> {
+        try {
+            return await this.driverService.populateDB();
+        } catch (error) {
+            throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

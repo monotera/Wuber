@@ -4,8 +4,8 @@ export class RiderDTO {
     id: number;
     @IsNotEmpty()
     name: string;
-    creditCardPaymentSource: number;
-    acceptanceToken: string;
+    creditCardPaymentSource: number | undefined;
+    acceptanceToken: string | undefined;
     @IsEmail()
     email: string;
     isAvailable: boolean

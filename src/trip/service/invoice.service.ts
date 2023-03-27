@@ -7,7 +7,7 @@ import {TripDTO} from "../dto/trip.dto";
 import axios from "axios";
 import {v4 as uuid} from 'uuid';
 
-const BASE_PRICE = 1000;
+const BASE_PRICE = 3500;
 const PRICE_EVERY_KM = 1000;
 const PRICE_EVERY_MIN = 200;
 const WOMPI_SANDBOX_URL = "https://sandbox.wompi.co"

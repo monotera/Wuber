@@ -70,5 +70,27 @@ export class RiderService {
         return this.riderRepository.save(rider);
     }
 
+    async populateDB(creditCardPaymentSource: number[], acceptanceToken: string[]): Promise<RiderDTO[]> {
+        let riders = await this.findAll();
+        if (riders.length >= 10)
+            throw new Error("The db is already populated.")
+        riders = []
+        for (let i = 0; i < 10; i++) {
+            let creditCardPaymentSourceHelper = creditCardPaymentSource.shift();
+            let acceptanceTokenHelper = acceptanceToken.shift();
+            let testRider = {
+                name: "TesterRider" + i,
+                creditCardPaymentSource: creditCardPaymentSourceHelper ? creditCardPaymentSourceHelper : null,
+                acceptanceToken: acceptanceTokenHelper ? acceptanceTokenHelper :null,
+                email: "TesterRider" + i + "@test.com",
+            } as RiderDTO
+            riders.push(await this.create(testRider))
+        }
+        return riders;
+    }
+
+    getRandomInt(max: number): number {
+        return Math.floor(Math.random() * max);
+    }
 
 }

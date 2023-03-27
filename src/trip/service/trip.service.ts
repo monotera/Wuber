@@ -68,12 +68,14 @@ export class TripService {
         let trip: TripDTO | null = await this.findOne(basicTripEndInfo.tripId);
         if (!trip)
             throw new Error("Invalid trip id")
+        if (trip.invoice)
+            throw new Error("The trip is already done")
         trip.endTime = new Date();
         trip.endLat = basicTripEndInfo.tripEndLat;
         trip.endLong = basicTripEndInfo.tripEndLong;
         trip.invoice = await this.invoiceService.create(trip);
         await this.driverService.updateAvailability(trip.driver.id, true);
-        await this.riderService.updateAvailability(trip.driver.id, true);
+        await this.riderService.updateAvailability(trip.rider.id, true);
         return this.tripRepository.save(trip);
     }
 }

@@ -1,5 +1,5 @@
 import {DriversService} from "../service/drivers.service";
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, ParseIntPipe, Post} from '@nestjs/common';
 import {DriverDTO} from "../dto/driver.dto";
 
 @Controller('drivers')
@@ -23,7 +23,7 @@ export class DriverController {
     }
 
     @Get("/:id")
-    findOne(@Param('id') id: number): Promise<DriverDTO | null> {
+    findOne(@Param('id', ParseIntPipe) id: number): Promise<DriverDTO | null> {
         return this.driverService.findOne(id);
     }
 

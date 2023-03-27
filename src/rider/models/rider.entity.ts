@@ -8,9 +8,9 @@ export class Rider {
     id: number;
     @Column()
     name: string;
-    @Column()
+    @Column({nullable: true})
     creditCardPaymentSource: number;
-    @Column()
+    @Column({nullable: true})
     acceptanceToken: string;
     @Column()
     email: string;

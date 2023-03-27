@@ -25,12 +25,11 @@ export class TripController {
     }
 
     @Patch("/:id")
-    async finishATrip( @Param('id') id: number, @Body() basicTripEndInfo: BasicTripEndDTO): Promise<TripDTO> {
+    async finishATrip(@Param('id', ParseIntPipe) id: number, @Body() basicTripEndInfo: BasicTripEndDTO): Promise<TripDTO> {
         basicTripEndInfo.tripId = id;
         try {
             return await this.tripService.finishATrip(basicTripEndInfo);
         } catch (error) {
-            console.log(error)
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

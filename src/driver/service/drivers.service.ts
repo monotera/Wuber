@@ -1,8 +1,8 @@
 import {Injectable} from '@nestjs/common';
 import {Driver} from "../models/driver.entity";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
-import {DriverI} from "../models/driver.interface";
+import {Repository, UpdateResult} from "typeorm";
+import {DriverDTO} from "../dto/driver.dto";
 
 /*
 * TODO: Methods
@@ -17,17 +17,37 @@ export class DriversService {
         private driverRepository: Repository<Driver>,
     ) {
     }
-    findAll(): Promise<DriverI[]> {
+
+    findAll(): Promise<DriverDTO[]> {
         return this.driverRepository.find();
     }
 
-    findOne(id: number): Promise<DriverI | null> {
+    findOne(id: number): Promise<DriverDTO | null> {
         return this.driverRepository.findOneBy({id});
     }
 
-    create(driver: DriverI): Promise<DriverI> {
+    create(driver: DriverDTO): Promise<DriverDTO> {
         const newDriver = this.driverRepository.create(driver);
         return this.driverRepository.save(newDriver);
 
+    }
+
+    fetchAllAvailableDrivers(): Promise<DriverDTO[]> {
+        return this.driverRepository.find({
+            where: {
+                isAvailable: true
+            }
+        });
+    }
+
+    async fetchAvailableDriverId(): Promise<number> {
+        let availableDriver = await this.fetchAllAvailableDrivers();
+        if (availableDriver.length <= 0)
+            throw new Error("there are no available drivers.");
+        return availableDriver[0]["id"];
+    }
+
+    async updateAvailability(id: number, availability:boolean): Promise<UpdateResult> {
+        return this.driverRepository.update(id, {isAvailable: availability});
     }
 }

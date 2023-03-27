@@ -1,6 +1,6 @@
 import {DriversService} from "../service/drivers.service";
 import {Body, Controller, Get, Param, Post} from '@nestjs/common';
-import {DriverI} from "../models/driver.interface";
+import {DriverDTO} from "../dto/driver.dto";
 
 @Controller('drivers')
 export class DriverController {
@@ -8,17 +8,23 @@ export class DriverController {
     }
 
     @Get()
-    findAll(): Promise<DriverI[]> {
+    findAll(): Promise<DriverDTO[]> {
         return this.driverService.findAll();
     }
 
     @Post()
-    create(@Body() driver: DriverI): Promise<DriverI> {
+    create(@Body() driver: DriverDTO): Promise<DriverDTO> {
         return this.driverService.create(driver);
     }
 
+    @Get("/available")
+    findAvailableDrivers(): Promise<DriverDTO[]>{
+        return this.driverService.fetchAllAvailableDrivers();
+    }
+
     @Get("/:id")
-    findOne(@Param('id') id: number): Promise<DriverI | null> {
+    findOne(@Param('id') id: number): Promise<DriverDTO | null> {
         return this.driverService.findOne(id);
     }
+
 }

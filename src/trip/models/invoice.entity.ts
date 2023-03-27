@@ -9,8 +9,10 @@ export class Invoice {
     basePrice: number;
     @Column("decimal", { precision: 12, scale: 2 })
     finalPrice: number;
-    @Column("decimal", { precision: 4, scale: 2 })
+    @Column("decimal", { precision: 8, scale: 2 })
     totalKM: number;
+    @Column()
+    totalMin: number;
     @Column()
     paymentReference: string;
 

@@ -1,6 +1,6 @@
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
-import {RiderI} from "../models/rider.interface";
+import {Repository, UpdateResult} from "typeorm";
+import {RiderDTO} from "../dto/rider.dto";
 import {Rider} from "../models/rider.entity";
 import {Injectable} from "@nestjs/common";
 
@@ -12,16 +12,35 @@ export class RiderService {
     ) {
     }
 
-    findAll(): Promise<RiderI[]> {
+    findAll(): Promise<RiderDTO[]> {
         return this.riderRepository.find();
     }
 
-    findOne(id: number): Promise<RiderI | null> {
+    findOne(id: number): Promise<RiderDTO | null> {
         return this.riderRepository.findOneBy({id});
     }
 
-    create(rider: RiderI): Promise<RiderI> {
+    create(rider: RiderDTO): Promise<RiderDTO> {
         const newRider = this.riderRepository.create(rider);
         return this.riderRepository.save(newRider);
+    }
+
+    async isRiderAvailable(id: number): Promise<void> {
+        const rider = await this.riderRepository.findOne({
+            where: {
+                isAvailable: true,
+                id: id
+            }
+        });
+        if (!rider)
+            throw new Error("The given rider is not available.");
+        if (!rider.creditCardPaymentSource)
+            throw new Error("The given rider hasn't created a paymentSource.");
+        if (!rider.acceptanceToken)
+            throw new Error("The given rider hasn't agreed to the politics of the page.");
+    }
+
+    async updateAvailability(id: number, availability: boolean): Promise<UpdateResult> {
+        return this.riderRepository.update(id, {isAvailable: availability});
     }
 }

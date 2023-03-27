@@ -5,6 +5,7 @@ import {DriverController} from "./controller/driver.controller";
 import {TypeOrmModule} from "@nestjs/typeorm";
 
 @Module({
+    exports: [DriversService],
     imports: [TypeOrmModule.forFeature([Driver])],
     controllers: [DriverController],
     providers: [DriversService],

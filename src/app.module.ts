@@ -5,13 +5,14 @@ import {DriverModule} from './driver/driver.module';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {RiderModule} from "./rider/rider.module";
 import {TripModule} from "./trip/trip.module";
-
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
     imports: [
+        ConfigModule.forRoot({isGlobal: true}),
         TypeOrmModule.forRoot({
             type: 'postgres',
-            url: "postgres://tester:tester@postgres:5432/wuber",
+            url: process.env.POSTGRES_URL,
             port: 5432,
             autoLoadEntities: true,
             synchronize: true,

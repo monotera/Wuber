@@ -8,14 +8,14 @@ export class Rider {
     id: number;
     @Column()
     name: string;
-    @Column("decimal", { precision: 17, scale: 15 })
-    currentLat: number;
-    @Column("decimal", { precision: 17, scale: 15 })
-    currentLong: number;
     @Column()
-    creditCardToken: string;
+    creditCardPaymentSource: number;
+    @Column()
+    acceptanceToken: string;
+    @Column()
+    email: string;
     @Column({default: true})
-    isOnTrip: boolean
+    isAvailable: boolean
 
     @OneToMany(() => Trip, trip => trip.rider)
     trips: Trip[];
